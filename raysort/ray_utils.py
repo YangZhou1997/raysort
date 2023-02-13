@@ -284,10 +284,11 @@ def get_node_id() -> ray.NodeID:
 def _init_runtime_context(cfg: AppConfig):
     resources = ray.cluster_resources()
     logging.info("Cluster resources: %s", resources)
-    assert (
-        constants.WORKER_RESOURCE in resources
-    ), "Ray cluster is not set up correctly: no worker resources. Did you forget `--local`?"
-    cfg.num_workers = int(resources[constants.WORKER_RESOURCE])
+    # assert (
+    #     constants.WORKER_RESOURCE in resources
+    # ), "Ray cluster is not set up correctly: no worker resources. Did you forget `--local`?"
+    # cfg.num_workers = int(resources[constants.WORKER_RESOURCE])
+    cfg.num_workers = 7
     head_node_str = "node:" + ray.util.get_node_ip_address()
     cfg.worker_ips = [
         r.split(":")[1]
@@ -307,9 +308,9 @@ def _init_runtime_context(cfg: AppConfig):
 
 def init(job_cfg: JobConfig):
     cluster = None
-    if job_cfg.cluster.local:
-        cluster = _init_local_cluster(job_cfg)
-    else:
-        ray.init(address="auto")
+    # if job_cfg.cluster.local:
+    #     cluster = _init_local_cluster(job_cfg)
+    # else:
+    ray.init(address="auto")
     _init_runtime_context(job_cfg.app)
     return cluster

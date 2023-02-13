@@ -1,8 +1,8 @@
 import os
 from typing import Optional
 
-from raysort.config.aws import configs as aws_configs
-from raysort.config.azure import configs as azure_configs
+# from raysort.config.aws import configs as aws_configs
+# from raysort.config.azure import configs as azure_configs
 from raysort.config.common import (  # Expose these types to consumers of this module.
     CONFIG_NAME_ENV_VAR,
     AppConfig,
@@ -13,7 +13,8 @@ from raysort.config.common import (  # Expose these types to consumers of this m
 from raysort.config.local import configs as local_configs
 
 __config_dict__ = {
-    cfg.name: cfg for cfg in sum([aws_configs, azure_configs, local_configs], [])
+    # cfg.name: cfg for cfg in sum([aws_configs, azure_configs, local_configs], [])
+    cfg.name: cfg for cfg in sum([local_configs], [])
 }
 
 
